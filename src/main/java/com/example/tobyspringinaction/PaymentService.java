@@ -13,7 +13,7 @@ import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
-public class PaymentService {
+public abstract class PaymentService {
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
         // 환율 가져오기
         BigDecimal rate = getBigDecimal(currency);
@@ -27,24 +27,5 @@ public class PaymentService {
         return new Payment(orderId, currency, foreignCurrencyAmount, convertedAmount, rate, validUntil);
     }
 
-    private static BigDecimal getBigDecimal(String currency) throws IOException {
-        URL url = new URL("https://open.er-api.com/v6/latest/" + currency);
-        URLConnection urlConnection = (URLConnection) url.openConnection();
-        BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-        String collect = br.lines().collect(Collectors.joining());
-        br.close();
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        ExRate exRate = mapper.readValue(collect, ExRate.class);
-
-        BigDecimal rate = exRate.rates().get("KRW");
-        return rate;
-    }
-
-    public static void main(String[] args) throws IOException {
-        PaymentService paymentService = new PaymentService();
-        Payment payment = paymentService.prepare(1L, "USD", BigDecimal.valueOf(50.7));
-        System.out.println("payment = " + payment);
-    }
+    abstract BigDecimal getBigDecimal(String currency) throws IOException;
 }
