@@ -3,9 +3,8 @@ package com.example.tobyspringinaction;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class FixExRatePaymentService extends PaymentService {
+public class FixExRatePaymentProvider {
 
-    @Override
     BigDecimal getBigDecimal(String currency) throws IOException {
 
         if (currency.equals("USD")) {

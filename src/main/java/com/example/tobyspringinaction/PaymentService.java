@@ -1,22 +1,19 @@
 package com.example.tobyspringinaction;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
-public abstract class PaymentService {
+public class PaymentService {
+    private WebApiExRatePaymentProvider exRateProvider;
+
+    public PaymentService() {
+        this.exRateProvider = new WebApiExRatePaymentProvider();
+    }
+
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
         // 환율 가져오기
-        BigDecimal rate = getBigDecimal(currency);
+        BigDecimal rate = exRateProvider.getWebBigDecimal(currency);
 
         // 금액 계산
         BigDecimal convertedAmount = foreignCurrencyAmount.multiply(rate);
@@ -26,6 +23,4 @@ public abstract class PaymentService {
 
         return new Payment(orderId, currency, foreignCurrencyAmount, convertedAmount, rate, validUntil);
     }
-
-    abstract BigDecimal getBigDecimal(String currency) throws IOException;
 }
