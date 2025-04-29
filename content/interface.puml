@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class PaymentService {
+    +prepare()
+}
+interface ExRateProvider {
+    +getExRate()
+}
+class WebApiExRateProvider implements ExRateProvider {
+    +getExRate()
+}
+class FixExRateProvider implements ExRateProvider {
+    +getExRate()
+}
+
+PaymentService ..> ExRateProvider: use
+
+
+@enduml

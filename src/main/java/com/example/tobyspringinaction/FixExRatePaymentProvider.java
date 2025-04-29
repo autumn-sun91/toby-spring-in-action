@@ -3,9 +3,10 @@ package com.example.tobyspringinaction;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class FixExRatePaymentProvider {
+public class FixExRatePaymentProvider implements ExRateProvider{
 
-    BigDecimal getBigDecimal(String currency) throws IOException {
+    @Override
+    public BigDecimal getExRate(String currency) throws IOException {
 
         if (currency.equals("USD")) {
             return BigDecimal.valueOf(1_000);
