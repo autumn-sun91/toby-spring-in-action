@@ -1,6 +1,7 @@
 package com.example.tobyspringinaction;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.stream.Collectors;
 
+@Component
 public class WebApiExRatePaymentProvider implements ExRateProvider{
 
     @Override
