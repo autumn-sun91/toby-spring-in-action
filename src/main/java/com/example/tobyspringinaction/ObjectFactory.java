@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 public class ObjectFactory {
     @Bean
     public PaymentService paymentService() {
-        return new PaymentService(cacheExRateProvider());
+        return new PaymentService(exRateProvider());
     }
 
-    @Bean
+    /*@Bean
     public CacheExRateProvider cacheExRateProvider() {
         return new CacheExRateProvider(exRateProvider());
-    }
+    }*/
 
     @Bean
     public ExRateProvider exRateProvider() {
