@@ -1,7 +1,7 @@
-package com.example.tobyspringinaction;
+package com.example.tobyspringinaction.exrate;
 
+import com.example.tobyspringinaction.payment.ExRateProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.stream.Collectors;
 
-public class WebApiExRatePaymentProvider implements ExRateProvider{
+public class WebApiExRatePaymentProvider implements ExRateProvider {
 
     @Override
     public BigDecimal getExRate(String currency) throws IOException {

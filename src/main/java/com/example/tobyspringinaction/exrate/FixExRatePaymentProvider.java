@@ -1,9 +1,11 @@
-package com.example.tobyspringinaction;
+package com.example.tobyspringinaction.exrate;
+
+import com.example.tobyspringinaction.payment.ExRateProvider;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class FixExRatePaymentProvider implements ExRateProvider{
+public class FixExRatePaymentProvider implements ExRateProvider {
 
     @Override
     public BigDecimal getExRate(String currency) throws IOException {

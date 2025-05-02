@@ -10,11 +10,12 @@ interface ExRateProvider {
 class WebApiExRateProvider implements ExRateProvider {
     +getExRate()
 }
-class FixExRateProvider implements ExRateProvider {
+class CacheExRateProvider implements ExRateProvider {
     +getExRate()
 }
 
-PaymentService ..> ExRateProvider: use
+PaymentService .right.> ExRateProvider: use
+CacheExRateProvider .left.> WebApiExRateProvider: use
 
 
 @enduml

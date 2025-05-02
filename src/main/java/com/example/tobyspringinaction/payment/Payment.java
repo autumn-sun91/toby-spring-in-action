@@ -1,4 +1,4 @@
-package com.example.tobyspringinaction;
+package com.example.tobyspringinaction.payment;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

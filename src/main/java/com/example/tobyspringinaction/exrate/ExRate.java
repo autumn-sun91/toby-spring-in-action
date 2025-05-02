@@ -1,4 +1,4 @@
-package com.example.tobyspringinaction;
+package com.example.tobyspringinaction.exrate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
