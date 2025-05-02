@@ -13,28 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PaymentServiceTest {
 
-    static class ExRateProviderStub implements ExRateProvider {
-
-        private BigDecimal exRate;
-
-        public BigDecimal getExRate() {
-            return exRate;
-        }
-
-        public void setExRate(BigDecimal exRate) {
-            this.exRate = exRate;
-        }
-
-        public ExRateProviderStub(BigDecimal exRate) {
-            this.exRate = exRate;
-        }
-
-        @Override
-        public BigDecimal getExRate(String currency) throws IOException {
-            return exRate;
-        }
-    }
-
     @Test
     @DisplayName("prepare 메소드가 요구사항 3가지(환율 정보 가져오는지, 원환 환산, 원화 환산 유효시간)를 잘 충족했는지 검증")
     void prepare() throws IOException {
