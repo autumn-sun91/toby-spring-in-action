@@ -21,6 +21,6 @@ public class PaymentService {
         // 유효 시간 계산
         LocalDateTime validUntil = LocalDateTime.now().plusMinutes(30);
 
-        return new Payment(orderId, currency, foreignCurrencyAmount, convertedAmount, rate, validUntil);
+        return new Payment(orderId, currency, foreignCurrencyAmount, rate, convertedAmount, validUntil);
     }
 }
