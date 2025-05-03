@@ -26,14 +26,14 @@ class PaymentServiceTest {
 
     @Test
     @DisplayName("prepare 메소드가 요구사항 3가지(환율 정보 가져오는지, 원환 환산, 원화 환산 유효시간)를 잘 충족했는지 검증")
-    void prepare() throws IOException {
+    void prepare() {
         testAmount(valueOf(500), valueOf(5_000), this.clock);
         testAmount(valueOf(1_000), valueOf(10_000), this.clock);
         testAmount(valueOf(3_000), valueOf(30_000), this.clock);
     }
 
     @Test
-    void validUntil() throws IOException {
+    void validUntil()  {
         // given
         PaymentService paymentService = new PaymentService(new ExRateProviderStub(BigDecimal.valueOf(1_000)), clock);
 
@@ -48,7 +48,7 @@ class PaymentServiceTest {
     }
 
     @NonNull
-    private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) throws IOException {
+    private static void testAmount(BigDecimal exRate, BigDecimal convertedAmount, Clock clock)  {
         // given
         PaymentService paymentService = new PaymentService(new ExRateProviderStub(exRate), clock);
 

@@ -33,7 +33,7 @@ class PaymentServiceSpringTest {
 
     @Test
     @DisplayName("exRate: 1_000 -> prepare 메소드가 요구사항 3가지(환율 정보 가져오는지, 원환 환산, 원화 환산 유효시간)를 잘 충족했는지 검증")
-    void prepare1_000() throws IOException {
+    void prepare1_000()  {
         // given
         exRateProviderStub.setExRate(BigDecimal.valueOf(1_000));
         // when
@@ -49,7 +49,7 @@ class PaymentServiceSpringTest {
 
     @Test
     @DisplayName("exRate: 500 -> prepare 메소드가 요구사항 3가지(환율 정보 가져오는지, 원환 환산, 원화 환산 유효시간)를 잘 충족했는지 검증")
-    void prepare500() throws IOException {
+    void prepare500()  {
         // given
         exRateProviderStub.setExRate(BigDecimal.valueOf(500));
         // when
@@ -64,7 +64,7 @@ class PaymentServiceSpringTest {
     }
 
     @Test
-    void validUntil() throws IOException {
+    void validUntil()  {
         // given
         // when
         Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
