@@ -1,19 +1,16 @@
 package com.example.tobyspringinaction.exrate;
 
 import com.example.tobyspringinaction.api.ApiExecutor;
+import com.example.tobyspringinaction.api.ErApiExRateExtractor;
+import com.example.tobyspringinaction.api.ExRateExtractor;
 import com.example.tobyspringinaction.api.SimpleApiExecutor;
 import com.example.tobyspringinaction.payment.ExRateProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLConnection;
-import java.util.stream.Collectors;
 
 public class WebApiExRatePaymentProvider implements ExRateProvider {
 
@@ -21,10 +18,10 @@ public class WebApiExRatePaymentProvider implements ExRateProvider {
     public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
 
-        return runApiForExRate(url, new SimpleApiExecutor());
+        return runApiForExRate(url, new SimpleApiExecutor(), new ErApiExRateExtractor());
     }
 
-    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor) {
+    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
         URI uri;
         try {
             uri = new URI(url);
@@ -40,15 +37,9 @@ public class WebApiExRatePaymentProvider implements ExRateProvider {
         }
 
         try {
-            return extractExRate(response);
+            return exRateExtractor.extract(response);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static BigDecimal extractExRate(String response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ExRate exRate = mapper.readValue(response, ExRate.class);
-        return exRate.rates().get("KRW");
     }
 }
