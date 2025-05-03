@@ -6,7 +6,11 @@ import com.example.tobyspringinaction.payment.ExRateProvider;
 import java.math.BigDecimal;
 
 public class WebApiExRatePaymentProvider implements ExRateProvider {
-    ApiTemplate apiTemplate = new ApiTemplate(); // 상태값 없으므로 한번만 생성
+    private final ApiTemplate apiTemplate;
+
+    public WebApiExRatePaymentProvider(ApiTemplate apiTemplate) {
+        this.apiTemplate = apiTemplate;
+    }
 
     @Override
     public BigDecimal getExRate(String currency) {

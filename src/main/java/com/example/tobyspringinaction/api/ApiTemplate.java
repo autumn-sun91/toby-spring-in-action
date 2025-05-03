@@ -16,8 +16,21 @@ public class ApiTemplate {
         this.exRateExtractor = new ErApiExRateExtractor();
     }
 
+    public ApiTemplate(ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
+        this.apiExecutor = apiExecutor;
+        this.exRateExtractor = exRateExtractor;
+    }
+
     public BigDecimal getForExRate(String url) {
         return this.getForExRate(url, this.apiExecutor, this.exRateExtractor);
+    }
+
+    public BigDecimal getForExRate(String url, ApiExecutor apiExecutor) {
+        return this.getForExRate(url, apiExecutor, this.exRateExtractor);
+    }
+
+    public BigDecimal getForExRate(String url, ExRateExtractor exRateExtractor) {
+        return this.getForExRate(url, this.apiExecutor, exRateExtractor);
     }
 
     public BigDecimal getForExRate(String url, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {

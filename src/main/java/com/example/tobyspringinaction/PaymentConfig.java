@@ -1,5 +1,8 @@
 package com.example.tobyspringinaction;
 
+import com.example.tobyspringinaction.api.ApiTemplate;
+import com.example.tobyspringinaction.api.ErApiExRateExtractor;
+import com.example.tobyspringinaction.api.SimpleApiExecutor;
 import com.example.tobyspringinaction.exrate.WebApiExRatePaymentProvider;
 import com.example.tobyspringinaction.payment.ExRateProvider;
 import com.example.tobyspringinaction.payment.PaymentService;
@@ -17,7 +20,12 @@ public class PaymentConfig {
 
     @Bean
     public ExRateProvider exRateProvider() {
-        return new WebApiExRatePaymentProvider();
+        return new WebApiExRatePaymentProvider(apiTemplate());
+    }
+
+    @Bean
+    public ApiTemplate apiTemplate() {
+        return new ApiTemplate(new SimpleApiExecutor(), new ErApiExRateExtractor());
     }
 
     @Bean
