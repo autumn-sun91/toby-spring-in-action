@@ -20,12 +20,7 @@ public class PaymentService {
         // 환율 가져오기
         BigDecimal rate = exRateProvider.getExRate(currency);
 
-        // 금액 계산
-        BigDecimal convertedAmount = foreignCurrencyAmount.multiply(rate);
 
-        // 유효 시간 계산
-        LocalDateTime validUntil = LocalDateTime.now(clock).plusMinutes(30);
-
-        return new Payment(orderId, currency, foreignCurrencyAmount, rate, convertedAmount, validUntil);
+        return Payment.createPrepared(orderId, currency, foreignCurrencyAmount, rate, LocalDateTime.now(clock));
     }
 }
