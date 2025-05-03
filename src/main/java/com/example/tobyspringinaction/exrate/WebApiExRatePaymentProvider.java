@@ -1,5 +1,7 @@
 package com.example.tobyspringinaction.exrate;
 
+import com.example.tobyspringinaction.api.ApiExecutor;
+import com.example.tobyspringinaction.api.SimpleApiExecutor;
 import com.example.tobyspringinaction.payment.ExRateProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +21,10 @@ public class WebApiExRatePaymentProvider implements ExRateProvider {
     public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
 
-        return runApiForExRate(url);
+        return runApiForExRate(url, new SimpleApiExecutor());
     }
 
-    private static BigDecimal runApiForExRate(String url) {
+    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor) {
         URI uri;
         try {
             uri = new URI(url);
@@ -32,7 +34,7 @@ public class WebApiExRatePaymentProvider implements ExRateProvider {
 
         String response;
         try {
-            response = executeApi(uri);
+            response = apiExecutor.execute(uri);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -48,14 +50,5 @@ public class WebApiExRatePaymentProvider implements ExRateProvider {
         ObjectMapper mapper = new ObjectMapper();
         ExRate exRate = mapper.readValue(response, ExRate.class);
         return exRate.rates().get("KRW");
-    }
-
-    private static String executeApi(URI uri) throws IOException {
-        String response;
-        URLConnection urlConnection = (URLConnection) uri.toURL().openConnection();
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
-            response = br.lines().collect(Collectors.joining());
-        }
-        return response;
     }
 }
