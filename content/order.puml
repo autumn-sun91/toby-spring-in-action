@@ -5,14 +5,16 @@ class OrderClient
 
 package "Application Layer" {
     class OrderService
+    interface OrderRepository
 }
 
 package "Infra Layer" {
-    class OrderRepository
+    class JpaOrderRepository
 }
 
 OrderClient .down.> OrderService: use
-OrderService .down.> OrderRepository
+OrderService .right.> OrderRepository: use
+JpaOrderRepository .up.|> OrderRepository
 
 
 @enduml

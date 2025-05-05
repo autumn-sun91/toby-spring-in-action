@@ -1,6 +1,5 @@
 package com.example.tobyspringinaction;
 
-import com.example.tobyspringinaction.data.OrderRepository;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +11,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -46,7 +46,7 @@ public class DataConfig {
 
     // transaction begin, commit, rollback 처리
     @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
 }

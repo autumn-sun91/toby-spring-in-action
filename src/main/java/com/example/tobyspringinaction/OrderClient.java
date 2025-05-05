@@ -1,13 +1,9 @@
 package com.example.tobyspringinaction;
 
-import com.example.tobyspringinaction.data.OrderRepository;
 import com.example.tobyspringinaction.order.Order;
 import com.example.tobyspringinaction.order.OrderService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
 
