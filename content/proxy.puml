@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface OrderService
+class OrderServiceImpl
+class OrderServiceTxProxy
+
+OrderServiceImpl .up.|> OrderService
+OrderServiceTxProxy .up.|> OrderService
+OrderServiceTxProxy .left.> OrderServiceImpl
+
+
+@enduml

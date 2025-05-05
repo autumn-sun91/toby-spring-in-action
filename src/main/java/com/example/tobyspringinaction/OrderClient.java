@@ -2,6 +2,7 @@ package com.example.tobyspringinaction;
 
 import com.example.tobyspringinaction.order.Order;
 import com.example.tobyspringinaction.order.OrderService;
+import com.example.tobyspringinaction.order.OrderServiceImpl;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
