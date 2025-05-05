@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,29 +25,8 @@ public class DataConfig {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
 
-    // entity manager factory
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-        emf.setDataSource(dataSource());
-        emf.setPackagesToScan("com.example.tobyspringinaction");
-        emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter() {{
-            setDatabase(Database.H2);
-            setGenerateDdl(true);
-            setShowSql(true);
-        }});
-
-        return emf;
-    }
-
-    @Bean
-    public BeanPostProcessor persistenceAnnotationBeanPostProcessor() {
-        return new PersistenceAnnotationBeanPostProcessor();
-    }
-
-    // transaction begin, commit, rollback 처리
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
+    public PlatformTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
     }
 }

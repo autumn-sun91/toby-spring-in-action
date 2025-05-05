@@ -1,25 +1,31 @@
 package com.example.tobyspringinaction;
 
 
-import com.example.tobyspringinaction.data.JpaOrderRepository;
+import com.example.tobyspringinaction.data.JdbcOrderRepository;
 import com.example.tobyspringinaction.order.OrderRepository;
 import com.example.tobyspringinaction.order.OrderService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
 
 @Configuration
 @Import(DataConfig.class) // DataConfig 의 설정 모두 가져옴
 public class OrderConfig {
     @Bean
-    public OrderRepository orderRepository() {
-        return new JpaOrderRepository();
+    public OrderRepository orderRepository(DataSource dataSource) {
+        return new JdbcOrderRepository(dataSource);
     }
 
     @Bean
-    public OrderService orderService(JpaTransactionManager transactionManager) {
-        return new OrderService(orderRepository(), transactionManager);
+    public OrderService orderService(
+            PlatformTransactionManager transactionManager,
+            OrderRepository orderRepository
+    ) {
+        return new OrderService(orderRepository, transactionManager);
     }
 
 }
